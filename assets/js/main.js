@@ -20,6 +20,7 @@ toggle?.addEventListener("click", () => {
 syncToggle();
 
 /* ---------- active section in the nav ---------- */
+const navEl = document.querySelector(".topnav nav");
 const links = [...document.querySelectorAll(".topnav nav a")];
 const byId = new Map(links.map((a) => [a.getAttribute("href").slice(1), a]));
 const io = new IntersectionObserver((entries) => {
@@ -27,9 +28,14 @@ const io = new IntersectionObserver((entries) => {
     if (!e.isIntersecting) continue;
     links.forEach((a) => a.classList.remove("active"));
     const a = byId.get(e.target.id);
-    if (a) {
-      a.classList.add("active");
-      a.scrollIntoView({ block: "nearest", inline: "nearest" });
+    if (!a) continue;
+    a.classList.add("active");
+    // On narrow screens the nav row scrolls sideways: bring the active link into view by scrolling
+    // ONLY the nav row. (Element.scrollIntoView would also scroll the window and cancel the user's
+    // own scrolling / anchor jumps.)
+    if (navEl && navEl.scrollWidth > navEl.clientWidth) {
+      const left = a.offsetLeft - (navEl.clientWidth - a.offsetWidth) / 2;
+      navEl.scrollTo({ left: Math.max(0, left), behavior: "auto" });
     }
   }
 }, { rootMargin: "-45% 0px -50% 0px" });

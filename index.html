@@ -129,7 +129,7 @@
         <h2>A verifier-independent curriculum</h2>
         <p class="lead">VI&#8209;CuRL plugs into a standard GRPO loop. The reward source is unchanged (verifier, majority vote or entropy); only the prompts that drive the gradient update change over training.</p>
         <figure class="card" style="margin-top:18px">
-          <div class="fig-frame"><img src="assets/img/overview.png" alt="Conceptual overview: standard RL has high-variance gradients; VI-CuRL filters prompts by confidence, trains on a stable biased subset first, and converges to the unbiased objective as the retention rate anneals to one." loading="lazy"></div>
+          <div class="fig-frame"><img src="assets/img/overview.png" width="2305" height="897" alt="Conceptual overview: standard RL has high-variance gradients; VI-CuRL filters prompts by confidence, trains on a stable biased subset first, and converges to the unbiased objective as the retention rate anneals to one." loading="lazy"></div>
           <figcaption class="figcap">Unlike standard RL, which treats all samples equally, VI&#8209;CuRL selects high-confidence prompts to stabilize early training and gradually returns to the full distribution.</figcaption>
         </figure>
 
@@ -185,8 +185,8 @@
         <h3>Does VI&#8209;CuRL really reduce variance?</h3>
         <p>We measured both variance terms during training on the kept subset and on the full batch (oracle reward). Early on (\(\beta_t\approx0.2\)) the kept subset has 20–45% lower variance; as \(\beta_t\to1\) the ratio returns to one, as the theory predicts.</p>
         <div class="grid-2">
-          <figure class="card"><div class="fig-frame"><img src="assets/img/variance_ratio_qwen.png" alt="Variance ratio kept/full over training steps for Qwen2.5-Math-1.5B: both action and problem variance ratios are 0.55–0.8 while beta is 0.2 and rise to 1 as beta reaches 1." loading="lazy"></div><figcaption class="figcap">(a) Qwen2.5-Math-1.5B</figcaption></figure>
-          <figure class="card"><div class="fig-frame"><img src="assets/img/variance_ratio_deepseek.png" alt="Variance ratio kept/full over training steps for DeepSeek-R1-Distill-Qwen-1.5B: ratios around 0.55–0.62 early, rising to 1 as beta anneals." loading="lazy"></div><figcaption class="figcap">(b) DeepSeek-R1-Distill-Qwen-1.5B</figcaption></figure>
+          <figure class="card"><div class="fig-frame"><img src="assets/img/variance_ratio_qwen.png" width="1964" height="973" alt="Variance ratio kept/full over training steps for Qwen2.5-Math-1.5B: both action and problem variance ratios are 0.55–0.8 while beta is 0.2 and rise to 1 as beta reaches 1." loading="lazy"></div><figcaption class="figcap">(a) Qwen2.5-Math-1.5B</figcaption></figure>
+          <figure class="card"><div class="fig-frame"><img src="assets/img/variance_ratio_deepseek.png" width="1964" height="973" alt="Variance ratio kept/full over training steps for DeepSeek-R1-Distill-Qwen-1.5B: ratios around 0.55–0.62 early, rising to 1 as beta anneals." loading="lazy"></div><figcaption class="figcap">(b) DeepSeek-R1-Distill-Qwen-1.5B</figcaption></figure>
         </div>
       </div>
     </section>
