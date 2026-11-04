@@ -1,0 +1,130 @@
+/* Base layout + shared UI primitives. Widget-specific styles live in demos.css / results.css. */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--bg); color: var(--text-primary);
+  font-family: var(--font-sans); font-size: 17px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { line-height: 1.2; letter-spacing: -0.01em; }
+h2 { font-size: 1.9rem; margin: 0 0 .4rem; }
+h3 { font-size: 1.2rem; margin: 1.6rem 0 .4rem; }
+p { margin: .6rem 0; }
+code, pre { font-family: var(--font-mono); font-size: .88em; }
+:focus-visible { outline: 3px solid var(--brand); outline-offset: 2px; border-radius: 4px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.container { max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+section.block { padding: 64px 0 24px; }
+.section-kicker { font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--brand); margin-bottom: .3rem; }
+.lead { font-size: 1.12rem; color: var(--text-secondary); max-width: 62ch; }
+.muted { color: var(--text-muted); }
+.small { font-size: .88rem; }
+
+/* ---------- top nav ---------- */
+.topnav { position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(1.4) blur(10px);
+  background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom: 1px solid var(--border); }
+.topnav .container { display: flex; align-items: center; gap: 18px; height: 56px; }
+.topnav .brand { font-weight: 800; color: var(--text-primary); letter-spacing: -.01em; }
+.topnav nav { display: flex; gap: 16px; overflow-x: auto; scrollbar-width: none; flex: 1; }
+.topnav nav a { color: var(--text-secondary); font-size: .92rem; white-space: nowrap; padding: 4px 2px; border-bottom: 2px solid transparent; }
+.topnav nav a.active, .topnav nav a:hover { color: var(--text-primary); text-decoration: none; border-bottom-color: var(--brand); }
+.icon-btn { border: 1px solid var(--border); background: var(--surface-1); color: var(--text-primary);
+  width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; cursor: pointer; flex: none; }
+.icon-btn svg { width: 18px; height: 18px; }
+
+/* ---------- hero ---------- */
+.hero { color: #fff; background: radial-gradient(1200px 500px at 15% -10%, rgba(76, 201, 240, .28), transparent 60%),
+  radial-gradient(900px 500px at 100% 120%, rgba(146, 120, 255, .25), transparent 60%),
+  linear-gradient(160deg, var(--hero-from), var(--hero-to)); padding: 72px 0 56px; position: relative; overflow: hidden; }
+.hero canvas.hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .5; pointer-events: none; }
+.hero .container { position: relative; }
+.venue { display: inline-flex; gap: 8px; align-items: center; font-weight: 700; font-size: .85rem; letter-spacing: .06em;
+  padding: 5px 12px; border-radius: 999px; background: rgba(255, 209, 102, .14); color: #ffd166; border: 1px solid rgba(255, 209, 102, .45); }
+.hero h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); margin: 18px 0 10px; font-weight: 850; letter-spacing: -0.03em;
+  background: linear-gradient(90deg, #5eead4, #7dd3fc); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .subtitle { font-size: clamp(1.1rem, 2.2vw, 1.45rem); font-weight: 600; max-width: 32em; color: #eef2ff; margin: 0 0 22px; }
+.authors { font-size: 1.1rem; font-weight: 600; }
+.authors sup { font-weight: 500; opacity: .8; }
+.affils { color: #c7d2fe; font-size: .95rem; margin-top: 2px; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; font-weight: 650; font-size: .95rem;
+  border: 1px solid transparent; cursor: pointer; text-decoration: none !important; transition: transform .12s ease, background .12s ease; }
+.btn svg { width: 18px; height: 18px; }
+.btn-light { background: #ffffff; color: #0f2747; }
+.btn-ghost { background: rgba(255, 255, 255, .08); color: #fff; border-color: rgba(255, 255, 255, .35); }
+.btn:hover { transform: translateY(-1px); }
+.btn[aria-disabled="true"] { opacity: .55; cursor: not-allowed; transform: none; }
+
+/* ---------- cards & stats ---------- */
+.card { background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 860px) { .grid-3, .grid-2 { grid-template-columns: minmax(0, 1fr); } }
+.grid-top { align-items: start; }
+.stat .num { font-size: 2.6rem; font-weight: 800; letter-spacing: -.02em; line-height: 1.05; }
+.stat .num .unit { font-size: 1.1rem; font-weight: 700; color: var(--text-secondary); margin-left: 2px; }
+.stat .cap { color: var(--text-secondary); font-size: .95rem; margin-top: 6px; }
+.stat .from { color: var(--text-muted); font-size: .85rem; margin-top: 8px; }
+.tldr { border-left: 4px solid var(--brand); }
+
+/* ---------- shared form controls (use these in widgets) ---------- */
+.controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin: 4px 0 14px; }
+.control-label { font-size: .82rem; font-weight: 650; color: var(--text-secondary); margin-right: 6px; }
+.seg { display: inline-flex; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 3px; gap: 2px; flex-wrap: wrap; }
+.seg button { border: 0; background: transparent; color: var(--text-secondary); padding: 6px 11px; border-radius: 7px; font: inherit;
+  font-size: .86rem; font-weight: 600; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--surface-1); color: var(--text-primary); box-shadow: 0 1px 3px rgba(0, 0, 0, .12); }
+select.select { font: inherit; font-size: .9rem; padding: 6px 10px; border-radius: 9px; border: 1px solid var(--border);
+  background: var(--surface-1); color: var(--text-primary); }
+input[type="range"].slider { width: 100%; accent-color: var(--brand); }
+.btn-small { font: inherit; font-size: .84rem; font-weight: 650; padding: 6px 12px; border-radius: 9px; border: 1px solid var(--border);
+  background: var(--surface-1); color: var(--text-primary); cursor: pointer; }
+.btn-small:hover { background: var(--surface-2); }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: .85rem; color: var(--text-secondary); }
+.legend .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.figcap { font-size: .88rem; color: var(--text-muted); margin-top: 10px; }
+.viz-tooltip { position: absolute; left: 0; top: 0; pointer-events: none; opacity: 0; transition: opacity .1s ease; z-index: 20;
+  background: var(--surface-1); color: var(--text-primary); border: 1px solid var(--border); box-shadow: var(--shadow);
+  border-radius: 8px; padding: 8px 10px; font-size: .82rem; line-height: 1.4; max-width: 280px; }
+.viz-tooltip b { font-weight: 700; }
+.badge-sim { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--text-secondary); background: var(--surface-2); border: 1px dashed var(--border); border-radius: 6px; padding: 2px 8px; }
+
+/* ---------- tables ---------- */
+.table-wrap { overflow-x: auto; }
+table.data { border-collapse: collapse; width: 100%; font-size: .88rem; font-variant-numeric: tabular-nums; }
+table.data th, table.data td { padding: 7px 10px; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }
+table.data th:first-child, table.data td:first-child { text-align: left; }
+table.data thead th { color: var(--text-secondary); font-weight: 650; background: var(--surface-2); position: sticky; top: 0; }
+table.data tr.ours td { background: var(--brand-soft); font-weight: 650; }
+table.data td.best { font-weight: 800; }
+
+/* ---------- method / theory ---------- */
+.steps { counter-reset: s; display: grid; gap: 12px; }
+.step { display: grid; grid-template-columns: 38px 1fr; gap: 12px; align-items: start; }
+.step::before { counter-increment: s; content: counter(s); width: 30px; height: 30px; border-radius: 50%; background: var(--brand-soft);
+  color: var(--brand); font-weight: 800; display: grid; place-items: center; margin-top: 2px; }
+.theorem { border: 1px solid var(--border); border-left: 4px solid var(--brand); background: var(--surface-1); border-radius: var(--radius-sm); padding: 16px 18px; margin: 14px 0; }
+.theorem .tname { font-weight: 750; margin-bottom: 4px; }
+.math-display { overflow-x: auto; padding: 4px 0; }
+figure { margin: 0; }
+.fig-frame { background: #fff; border-radius: var(--radius-sm); padding: 10px; border: 1px solid var(--border); }
+
+/* ---------- video ---------- */
+.video-frame { border-radius: var(--radius); overflow: hidden; background: #000; box-shadow: var(--shadow); aspect-ratio: 16 / 9; }
+.video-frame video { width: 100%; height: 100%; }
+.chapters { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.chapters button { font: inherit; font-size: .82rem; border: 1px solid var(--border); background: var(--surface-1); color: var(--text-secondary);
+  border-radius: 999px; padding: 5px 11px; cursor: pointer; }
+.chapters button:hover { color: var(--text-primary); border-color: var(--brand); }
+.chapters .t { font-variant-numeric: tabular-nums; color: var(--brand); font-weight: 700; margin-right: 6px; }
+
+/* ---------- bibtex & footer ---------- */
+pre.bibtex { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; overflow-x: auto; line-height: 1.5; }
+.copy-row { display: flex; justify-content: flex-end; margin-bottom: 8px; }
+footer { padding: 40px 0 60px; color: var(--text-muted); font-size: .88rem; border-top: 1px solid var(--border); margin-top: 48px; }

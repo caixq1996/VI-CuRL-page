@@ -1,0 +1,107 @@
+/* Design tokens for the VI-CuRL project page.
+ * Light is the default; dark applies via OS setting or the [data-theme="dark"] toggle on <html>.
+ * Chart colors follow the dataviz reference palette (validated): VI-CuRL = series-accent (blue),
+ * baselines = series-muted (gray, emphasis form). Text never uses series colors.
+ */
+:root {
+  color-scheme: light;
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --bg: #fbfbfa;              /* page background */
+  --surface-1: #ffffff;       /* cards & chart surface */
+  --surface-2: #f3f4f6;       /* inset panels, table stripes */
+  --border: #e3e5e8;
+  --text-primary: #111318;
+  --text-secondary: #4b5058;
+  --text-muted: #6b7079;
+  --link: #1f63b8;
+
+  --brand: #2a78d6;           /* buttons, highlights */
+  --brand-ink: #ffffff;
+  --brand-soft: #e6f0fc;
+  --hero-from: #0f2747;
+  --hero-to: #1f4f8f;
+
+  /* chart roles */
+  --series-accent: #2a78d6;   /* VI-CuRL */
+  --series-muted: #9aa0a8;    /* baselines (emphasis gray) */
+  --series-faint: #c9ccd1;    /* reference / dropped items */
+  --cat-1: #2a78d6;           /* categorical slots (reference palette order) */
+  --cat-2: #eb6834;
+  --cat-3: #1baf7a;
+  --cat-4: #eda100;
+  --cat-5: #e87ba4;
+  --cat-7: #6250d6;
+  --cat-8: #e34948;
+  --status-critical: #d03b3b;
+  --grid: #eceef0;
+  --axis: #c4c8ce;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 2px rgba(16, 24, 40, .06), 0 4px 16px rgba(16, 24, 40, .06);
+  --maxw: 1080px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --bg: #121316;
+    --surface-1: #1a1a19;
+    --surface-2: #232427;
+    --border: #2f3136;
+    --text-primary: #f0efec;
+    --text-secondary: #c3c2b7;
+    --text-muted: #9a9a92;
+    --link: #7fb3f0;
+    --brand: #3987e5;
+    --brand-ink: #ffffff;
+    --brand-soft: #1b2a3f;
+    --hero-from: #0b1426;
+    --hero-to: #17345f;
+    --series-accent: #3987e5;
+    --series-muted: #62666e;
+    --series-faint: #45474d;
+    --cat-1: #3987e5;
+    --cat-2: #d95926;
+    --cat-3: #199e70;
+    --cat-4: #c98500;
+    --cat-5: #d55181;
+    --cat-7: #9085e9;
+    --cat-8: #e66767;
+    --grid: #2a2b2f;
+    --axis: #4a4d53;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #121316;
+  --surface-1: #1a1a19;
+  --surface-2: #232427;
+  --border: #2f3136;
+  --text-primary: #f0efec;
+  --text-secondary: #c3c2b7;
+  --text-muted: #9a9a92;
+  --link: #7fb3f0;
+  --brand: #3987e5;
+  --brand-ink: #ffffff;
+  --brand-soft: #1b2a3f;
+  --hero-from: #0b1426;
+  --hero-to: #17345f;
+  --series-accent: #3987e5;
+  --series-muted: #62666e;
+  --series-faint: #45474d;
+  --cat-1: #3987e5;
+  --cat-2: #d95926;
+  --cat-3: #199e70;
+  --cat-4: #c98500;
+  --cat-5: #d55181;
+  --cat-7: #9085e9;
+  --cat-8: #e66767;
+  --grid: #2a2b2f;
+  --axis: #4a4d53;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
+}

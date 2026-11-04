@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VI-CuRL: Stabilizing Verifier-Independent RL Reasoning via Confidence-Guided Variance Reduction</title>
+  <meta name="description" content="VI-CuRL (NeurIPS 2026): a verifier-independent curriculum that uses the model's own confidence to tame gradient variance and prevent collapse in RL for LLM reasoning.">
+  <meta property="og:title" content="VI-CuRL (NeurIPS 2026)">
+  <meta property="og:description" content="Confidence-guided curriculum RL that stays stable without a verifier.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://caixq1996.github.io/VI-CuRL-page/">
+  <meta property="og:image" content="https://caixq1996.github.io/VI-CuRL-page/assets/img/social.png">
+  <meta name="twitter:image" content="https://caixq1996.github.io/VI-CuRL-page/assets/img/social.png">
+  <link rel="canonical" href="https://caixq1996.github.io/VI-CuRL-page/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <script>
+    // apply the saved theme before first paint
+    try { const t = localStorage.getItem("vicurl-theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/demos.css">
+  <link rel="stylesheet" href="assets/css/results.css">
+</head>
+<body>
+  <a class="sr-only" href="#main">Skip to content</a>
+
+  <header class="topnav">
+    <div class="container">
+      <a class="brand" href="#top">VI-CuRL</a>
+      <nav aria-label="Sections">
+        <a href="#overview">Overview</a>
+        <a href="#video">Video</a>
+        <a href="#method">Method</a>
+        <a href="#playground">Playground</a>
+        <a href="#theory">Theory</a>
+        <a href="#results">Results</a>
+        <a href="#ablations">Ablations</a>
+        <a href="#bibtex">BibTeX</a>
+      </nav>
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <canvas class="hero-bg" aria-hidden="true"></canvas>
+    <div class="container">
+      <span class="venue">NeurIPS 2026</span>
+      <h1>VI-CuRL</h1>
+      <p class="subtitle">Stabilizing Verifier-Independent Reinforcement Learning Reasoning via Confidence-Guided Variance Reduction</p>
+      <div class="authors">Xin-Qiang Cai<sup>1</sup> &nbsp;·&nbsp; Masashi Sugiyama<sup>1,2</sup></div>
+      <div class="affils"><sup>1</sup>RIKEN AIP, Tokyo, Japan &nbsp;&nbsp; <sup>2</sup>The University of Tokyo, Tokyo, Japan</div>
+      <div class="btn-row">
+        <a class="btn btn-light" id="btn-paper" href="assets/paper/VI-CuRL_NeurIPS2026.pdf">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>Paper</a>
+        <a class="btn btn-ghost" id="btn-code" href="https://github.com/caixq1996/VI-CURL">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>Code</a>
+        <a class="btn btn-ghost" href="#video">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Video</a>
+        <a class="btn btn-ghost" href="#playground">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M1 12h4M19 12h4M4.2 19.8 7 17M17 7l2.8-2.8"/></svg>Playground</a>
+        <a class="btn btn-ghost" href="#bibtex">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/></svg>BibTeX</a>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <!-- ====================== OVERVIEW ====================== -->
+    <section class="block" id="overview">
+      <div class="container">
+        <div class="section-kicker">Overview</div>
+        <h2>Train first on what the model is sure about.</h2>
+        <p class="lead">Reinforcement learning with verifiable rewards (RLVR) needs an external verifier, which is expensive or simply unavailable for open-ended tasks. Verifier-free rewards such as majority vote or entropy remove that dependency, but their noise turns into destructive gradient variance and training often collapses. VI&#8209;CuRL keeps the reward you already have and changes <em>which prompts</em> drive each update: a curriculum built from the model's own confidence, annealed back to the full data.</p>
+
+        <div class="grid-3" style="margin-top:26px">
+          <div class="card stat">
+            <div class="num">34.2<span class="unit">%</span></div>
+            <div class="cap">average Pass@1 for VI&#8209;CuRL with a majority-vote reward, where TTRL collapses to <b>0.1%</b>.</div>
+            <div class="from">Qwen2.5-Math-1.5B · 6 math benchmarks</div>
+          </div>
+          <div class="card stat">
+            <div class="num">58.6<span class="unit">%</span></div>
+            <div class="cap">without any verifier, higher than standard GRPO <em>with</em> a ground-truth verifier (<b>50.8%</b>).</div>
+            <div class="from">DeepSeek-R1-Distill-Qwen-1.5B · average Pass@1</div>
+          </div>
+          <div class="card stat">
+            <div class="num">20–45<span class="unit">%</span></div>
+            <div class="cap">lower action and problem variance on the kept subset early in training, as Theorem 2 predicts.</div>
+            <div class="from">measured kept / full variance ratio at β<sub>t</sub> ≈ 0.2</div>
+          </div>
+        </div>
+
+        <div class="card tldr" style="margin-top:18px">
+          <b>Abstract.</b> Reinforcement Learning with Verifiable Rewards (RLVR) has emerged as a dominant paradigm for enhancing Large Language Models (LLMs) reasoning, yet its reliance on external verifiers limits its scalability. Recent findings suggest that RLVR primarily functions by eliciting latent capabilities, motivating the development of verifier-free algorithms. However, in such settings, standard methods like Group Relative Policy Optimization face a critical challenge: destructive gradient variance that often leads to training collapse. To address this issue, we introduce <b>Verifier-Independent Curriculum Reinforcement Learning (VI&#8209;CuRL)</b>, a framework that leverages the model's intrinsic confidence to construct a curriculum independent from external verifiers. By prioritizing high-confidence samples, VI&#8209;CuRL effectively manages the bias-variance trade-off, specifically targeting the reduction of <em>action</em> and <em>problem variance</em>. We provide a rigorous theoretical analysis, proving that our estimator guarantees asymptotic unbiasedness. Empirically, VI&#8209;CuRL promotes stability and consistently outperforms verifier-dependent/independent baselines across math and general reasoning benchmarks with/without verifiers.
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== VIDEO ====================== -->
+    <section class="block" id="video">
+      <div class="container">
+        <div class="section-kicker">Video</div>
+        <h2>VI&#8209;CuRL in eight minutes</h2>
+        <p class="lead">A narrated walkthrough of the problem, the method, the theory and the results.</p>
+        <div class="video-frame" style="margin-top:18px">
+          <video id="explainer" controls preload="metadata" playsinline poster="assets/video/poster.jpg">
+            <source src="assets/video/VI-CuRL_explainer.mp4" type="video/mp4">
+            <track kind="captions" src="assets/video/VI-CuRL_explainer.vtt" srclang="en" label="English" default>
+          </video>
+        </div>
+        <div class="chapters" id="video-chapters" aria-label="Video chapters"></div>
+      </div>
+    </section>
+
+    <!-- ====================== METHOD ====================== -->
+    <section class="block" id="method">
+      <div class="container">
+        <div class="section-kicker">Method</div>
+        <h2>A verifier-independent curriculum</h2>
+        <p class="lead">VI&#8209;CuRL plugs into a standard GRPO loop. The reward source is unchanged (verifier, majority vote or entropy); only the prompts that drive the gradient update change over training.</p>
+        <figure class="card" style="margin-top:18px">
+          <div class="fig-frame"><img src="assets/img/overview.png" alt="Conceptual overview: standard RL has high-variance gradients; VI-CuRL filters prompts by confidence, trains on a stable biased subset first, and converges to the unbiased objective as the retention rate anneals to one." loading="lazy"></div>
+          <figcaption class="figcap">Unlike standard RL, which treats all samples equally, VI&#8209;CuRL selects high-confidence prompts to stabilize early training and gradually returns to the full distribution.</figcaption>
+        </figure>
+
+        <div class="grid-2" style="margin-top:22px">
+          <div class="card">
+            <h3 style="margin-top:0">Confidence: a prompt-level, verifier-free score</h3>
+            <p>For each prompt we average the normalized entropy of the behavior policy's next-token distribution over sampled responses:</p>
+            <div class="math-display">$$u(x)=\mathbb{E}_{y\sim\pi_{\theta_{\mathrm{old}}}(\cdot\mid x)}\Big[\frac{1}{T}\sum_{t=1}^{T}\frac{H\big(\pi_{\theta_{\mathrm{old}}}(\cdot\mid s_t)\big)}{\log|\mathcal V|}\Big]$$</div>
+            <div class="math-display">$$c(x)=1-u(x)\in[0,1]$$</div>
+            <p class="small muted">Confidence never acts as a reward and receives no gradient. It only gates which prompts are used to control variance.</p>
+          </div>
+          <div class="card">
+            <h3 style="margin-top:0">One training step</h3>
+            <div class="steps">
+              <div class="step"><div>Sample <i>B</i> prompts and <i>G</i> responses each; compute rewards and group-relative advantages from any reward source.</div></div>
+              <div class="step"><div>Score each prompt by confidence \(c(x)\) under the current behavior policy.</div></div>
+              <div class="step"><div>Keep the top \(k_t=\lceil\beta_t B\rceil\) prompts and re-weight them by \(1/\hat\beta_t\).</div></div>
+              <div class="step"><div>Anneal the retention rate \(\beta_t\) linearly from 0.2 to 1, so training ends on the full, unbiased objective.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== PLAYGROUND (Agent A) ====================== -->
+    <section class="block" id="playground">
+      <div class="container">
+        <div class="section-kicker">Interactive playground</div>
+        <h2>Play with the two ideas behind VI&#8209;CuRL</h2>
+        <p class="lead">Both widgets are illustrative toy simulations that run in your browser. They explain the mechanism; they are not paper results.</p>
+        <div id="demo-confidence" class="card" style="margin-top:18px"></div>
+        <div id="demo-curriculum" class="card" style="margin-top:18px"></div>
+      </div>
+    </section>
+
+    <!-- ====================== THEORY ====================== -->
+    <section class="block" id="theory">
+      <div class="container">
+        <div class="section-kicker">Theory</div>
+        <h2>A principled bias–variance trade-off</h2>
+        <p class="lead">Training on a filtered subset introduces bias. The two results below show that the bias vanishes as the curriculum anneals, while the variance terms that destabilize training shrink.</p>
+        <div class="theorem">
+          <div class="tname">Theorem 1 (Consistency of the objective)</div>
+          <p>If the per-prompt surrogate loss is bounded, \(|\ell(\theta;x,y_{1:G})|\le L_{\max}\), then</p>
+          <div class="math-display">$$\big|\mathcal L(\theta)-\mathcal L_t(\theta)\big|\;\le\;2L_{\max}\,(1-\beta_t).$$</div>
+          <p class="small muted">As \(\beta_t\to1\) the curriculum objective converges to the true objective. The bound does not require the confidence score to be correct or calibrated; the retention rate only has to reach one.</p>
+        </div>
+        <div class="theorem">
+          <div class="tname">Theorem 2 (Variance decomposition)</div>
+          <div class="math-display">$$\operatorname{Var}(\hat g_t)=\underbrace{\frac{\sigma^2_{g,t}}{\beta_t}}_{\text{action}}+\underbrace{\frac{V_{\mathrm{prob},t}}{\beta_t}}_{\text{problem}}+\underbrace{\frac{1-\beta_t}{\beta_t}\big\|\nabla_\theta\mathcal L_t(\theta)\big\|^2}_{\text{masking}}$$</div>
+          <p class="small muted"><b>Action variance</b> is the spread of gradients across responses to the same prompt; <b>problem variance</b> is the spread of mean gradients across prompts, both measured within the selected set. <b>Masking variance</b> is the cost of partial retention and vanishes as \(\beta_t\to1\).</p>
+        </div>
+        <h3>Does VI&#8209;CuRL really reduce variance?</h3>
+        <p>We measured both variance terms during training on the kept subset and on the full batch (oracle reward). Early on (\(\beta_t\approx0.2\)) the kept subset has 20–45% lower variance; as \(\beta_t\to1\) the ratio returns to one, as the theory predicts.</p>
+        <div class="grid-2">
+          <figure class="card"><div class="fig-frame"><img src="assets/img/variance_ratio_qwen.png" alt="Variance ratio kept/full over training steps for Qwen2.5-Math-1.5B: both action and problem variance ratios are 0.55–0.8 while beta is 0.2 and rise to 1 as beta reaches 1." loading="lazy"></div><figcaption class="figcap">(a) Qwen2.5-Math-1.5B</figcaption></figure>
+          <figure class="card"><div class="fig-frame"><img src="assets/img/variance_ratio_deepseek.png" alt="Variance ratio kept/full over training steps for DeepSeek-R1-Distill-Qwen-1.5B: ratios around 0.55–0.62 early, rising to 1 as beta anneals." loading="lazy"></div><figcaption class="figcap">(b) DeepSeek-R1-Distill-Qwen-1.5B</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== RESULTS (Agent B) ====================== -->
+    <section class="block" id="results">
+      <div class="container">
+        <div class="section-kicker">Results</div>
+        <h2>Explore every number in the paper</h2>
+        <p class="lead">Four backbones, six math benchmarks, three reward settings, Pass@1 and Pass@8 (16 samples, mean ± std over 5 seeds). Pick a view below; every chart has a table view.</p>
+        <div id="results-explorer" class="card" style="margin-top:18px"></div>
+        <div id="general-results" class="card" style="margin-top:16px"></div>
+      </div>
+    </section>
+
+    <!-- ====================== ABLATIONS (Agent B) ====================== -->
+    <section class="block" id="ablations">
+      <div class="container">
+        <div class="section-kicker">Ablations</div>
+        <h2>Why confidence, and why annealing?</h2>
+        <div class="grid-2 grid-top" style="margin-top:12px">
+          <div id="ablation-chart" class="card"></div>
+          <div id="mechanism-chart" class="card"></div>
+        </div>
+        <div id="long-output" class="card" style="margin-top:16px"></div>
+      </div>
+    </section>
+
+    <!-- ====================== BIBTEX ====================== -->
+    <section class="block" id="bibtex">
+      <div class="container">
+        <div class="section-kicker">Citation</div>
+        <h2>BibTeX</h2>
+        <div class="copy-row"><button class="btn-small" id="copy-bibtex" type="button">Copy</button></div>
+<pre class="bibtex" id="bibtex-text">@inproceedings{cai2026vicurl,
+  title     = {{VI&#8209;CuRL}: Stabilizing Verifier-Independent Reinforcement Learning
+               Reasoning via Confidence-Guided Variance Reduction},
+  author    = {Cai, Xin-Qiang and Sugiyama, Masashi},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2026}
+}</pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>X-Q C was supported by JSPS KAKENHI Grant Number JP26K21323. MS was supported by JST ASPIRE Grant Number JPMJAP2405.</p>
+      <p>Video narration by Kokoro TTS; music generated with MusicGen. Interactive widgets are illustrative simulations; all reported numbers come from the paper.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="assets/js/main.js"></script>
+  <script type="module" src="assets/js/demos.js"></script>
+  <script type="module" src="assets/js/results.js"></script>
+</body>
+</html>

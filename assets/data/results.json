@@ -1,0 +1,4022 @@
+{
+ "source": "VI-CuRL NeurIPS 2026 camera-ready (main_v2.tex), Tables 1-3 and Appendix tables",
+ "notes": {
+  "metric": "Pass@1 / Pass@8 in %, 16 samples, mean \u00b1 std over 5 seeds",
+  "training_data": {
+   "math": "DeepScaleR",
+   "general": "WebInstruct-verified (math prompts removed)"
+  },
+  "settings": {
+   "base": "Base model, no RL",
+   "oracle": "Oracle reward (rule-based verifier)",
+   "majority_vote": "Verifier-free: majority-vote reward",
+   "entropy": "Verifier-free: entropy reward"
+  },
+  "curriculum_signal": "VI-CuRL's curriculum is verifier-independent in every setting; only the reward source changes."
+ },
+ "benchmarks": {
+  "math": [
+   "AIME 2024",
+   "AIME 2025",
+   "AMC 2023",
+   "MATH-500",
+   "Minerva Math",
+   "OlympiadBench"
+  ],
+  "general": [
+   "MMLU-Pro",
+   "GPQA-Diamond",
+   "TheoremQA",
+   "WebInstruct-Val"
+  ]
+ },
+ "models": {
+  "math": [
+   "Qwen2.5-Math-1.5B",
+   "DeepSeek-R1-Distill-Qwen-1.5B",
+   "Llama-3.2-3B-Instruct",
+   "Qwen2.5-Math-7B"
+  ],
+  "general": [
+   "Llama-3.2-3B-Instruct"
+  ]
+ },
+ "rows": [
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "base",
+   "method": "Base (no RL)",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     6.0,
+     1.9
+    ],
+    "AIME 2025": [
+     4.0,
+     0.6
+    ],
+    "AMC 2023": [
+     34.2,
+     0.2
+    ],
+    "MATH-500": [
+     47.5,
+     0.3
+    ],
+    "Minerva Math": [
+     5.1,
+     0.4
+    ],
+    "OlympiadBench": [
+     25.1,
+     0.4
+    ]
+   },
+   "avg": [
+    20.3,
+    0.6
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "oracle",
+   "method": "No Curriculum",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     15.0,
+     0.4
+    ],
+    "AIME 2025": [
+     5.6,
+     0.6
+    ],
+    "AMC 2023": [
+     50.3,
+     0.6
+    ],
+    "MATH-500": [
+     69.4,
+     0.4
+    ],
+    "Minerva Math": [
+     17.8,
+     0.6
+    ],
+    "OlympiadBench": [
+     31.6,
+     0.0
+    ]
+   },
+   "avg": [
+    31.6,
+    0.4
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "oracle",
+   "method": "VCRL",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     12.9,
+     2.0
+    ],
+    "AIME 2025": [
+     5.5,
+     1.0
+    ],
+    "AMC 2023": [
+     48.8,
+     2.0
+    ],
+    "MATH-500": [
+     69.2,
+     0.2
+    ],
+    "Minerva Math": [
+     18.7,
+     0.0
+    ],
+    "OlympiadBench": [
+     31.3,
+     0.2
+    ]
+   },
+   "avg": [
+    31.1,
+    0.9
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "oracle",
+   "method": "AdaRFT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     13.2,
+     1.5
+    ],
+    "AIME 2025": [
+     6.2,
+     1.4
+    ],
+    "AMC 2023": [
+     48.6,
+     2.0
+    ],
+    "MATH-500": [
+     68.7,
+     0.4
+    ],
+    "Minerva Math": [
+     20.1,
+     0.5
+    ],
+    "OlympiadBench": [
+     29.0,
+     0.3
+    ]
+   },
+   "avg": [
+    31.0,
+    1.0
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "oracle",
+   "method": "SENT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     15.6,
+     1.3
+    ],
+    "AIME 2025": [
+     8.1,
+     1.9
+    ],
+    "AMC 2023": [
+     52.1,
+     1.1
+    ],
+    "MATH-500": [
+     70.0,
+     1.0
+    ],
+    "Minerva Math": [
+     14.3,
+     1.9
+    ],
+    "OlympiadBench": [
+     32.0,
+     0.7
+    ]
+   },
+   "avg": [
+    32.0,
+    1.3
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "oracle",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     15.9,
+     1.2
+    ],
+    "AIME 2025": [
+     9.6,
+     0.7
+    ],
+    "AMC 2023": [
+     52.9,
+     1.3
+    ],
+    "MATH-500": [
+     70.1,
+     1.5
+    ],
+    "Minerva Math": [
+     24.3,
+     1.4
+    ],
+    "OlympiadBench": [
+     34.8,
+     3.9
+    ]
+   },
+   "avg": [
+    34.6,
+    1.7
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "majority_vote",
+   "method": "TTRL",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     0.0,
+     0.0
+    ],
+    "AIME 2025": [
+     0.0,
+     0.0
+    ],
+    "AMC 2023": [
+     0.0,
+     0.0
+    ],
+    "MATH-500": [
+     0.2,
+     0.0
+    ],
+    "Minerva Math": [
+     0.4,
+     0.0
+    ],
+    "OlympiadBench": [
+     0.0,
+     0.0
+    ]
+   },
+   "avg": [
+    0.1,
+    0.0
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "majority_vote",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     15.9,
+     1.1
+    ],
+    "AIME 2025": [
+     8.7,
+     1.1
+    ],
+    "AMC 2023": [
+     53.1,
+     1.3
+    ],
+    "MATH-500": [
+     72.3,
+     0.6
+    ],
+    "Minerva Math": [
+     21.6,
+     4.0
+    ],
+    "OlympiadBench": [
+     33.5,
+     4.5
+    ]
+   },
+   "avg": [
+    34.2,
+    2.1
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "entropy",
+   "method": "RENT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     0.0,
+     0.0
+    ],
+    "AIME 2025": [
+     0.0,
+     0.0
+    ],
+    "AMC 2023": [
+     10.8,
+     0.5
+    ],
+    "MATH-500": [
+     9.4,
+     0.1
+    ],
+    "Minerva Math": [
+     4.6,
+     0.1
+    ],
+    "OlympiadBench": [
+     3.7,
+     0.2
+    ]
+   },
+   "avg": [
+    4.8,
+    0.2
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "entropy",
+   "method": "EMPO",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     5.2,
+     1.0
+    ],
+    "AIME 2025": [
+     3.1,
+     0.8
+    ],
+    "AMC 2023": [
+     15.4,
+     2.1
+    ],
+    "MATH-500": [
+     18.2,
+     1.5
+    ],
+    "Minerva Math": [
+     6.5,
+     1.2
+    ],
+    "OlympiadBench": [
+     8.1,
+     0.9
+    ]
+   },
+   "avg": [
+    9.4,
+    1.3
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "entropy",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     13.8,
+     0.8
+    ],
+    "AIME 2025": [
+     6.0,
+     0.7
+    ],
+    "AMC 2023": [
+     48.6,
+     0.9
+    ],
+    "MATH-500": [
+     69.9,
+     1.9
+    ],
+    "Minerva Math": [
+     19.7,
+     4.0
+    ],
+    "OlympiadBench": [
+     32.0,
+     0.3
+    ]
+   },
+   "avg": [
+    31.7,
+    1.4
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "base",
+   "method": "Base (no RL)",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     29.5,
+     0.4
+    ],
+    "AIME 2025": [
+     20.6,
+     0.9
+    ],
+    "AMC 2023": [
+     69.3,
+     0.6
+    ],
+    "MATH-500": [
+     83.1,
+     0.3
+    ],
+    "Minerva Math": [
+     24.9,
+     0.6
+    ],
+    "OlympiadBench": [
+     43.6,
+     0.5
+    ]
+   },
+   "avg": [
+    45.2,
+    0.6
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "oracle",
+   "method": "No Curriculum",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     31.0,
+     0.7
+    ],
+    "AIME 2025": [
+     26.3,
+     0.5
+    ],
+    "AMC 2023": [
+     79.1,
+     0.9
+    ],
+    "MATH-500": [
+     88.7,
+     0.4
+    ],
+    "Minerva Math": [
+     29.5,
+     0.1
+    ],
+    "OlympiadBench": [
+     50.1,
+     0.2
+    ]
+   },
+   "avg": [
+    50.8,
+    0.5
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "oracle",
+   "method": "VCRL",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     33.2,
+     1.4
+    ],
+    "AIME 2025": [
+     26.8,
+     1.6
+    ],
+    "AMC 2023": [
+     80.2,
+     0.6
+    ],
+    "MATH-500": [
+     90.8,
+     0.8
+    ],
+    "Minerva Math": [
+     30.1,
+     2.0
+    ],
+    "OlympiadBench": [
+     55.5,
+     4.6
+    ]
+   },
+   "avg": [
+    52.8,
+    1.8
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "oracle",
+   "method": "AdaRFT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     35.0,
+     0.9
+    ],
+    "AIME 2025": [
+     29.9,
+     1.7
+    ],
+    "AMC 2023": [
+     82.0,
+     1.6
+    ],
+    "MATH-500": [
+     91.1,
+     1.0
+    ],
+    "Minerva Math": [
+     32.7,
+     1.0
+    ],
+    "OlympiadBench": [
+     56.3,
+     1.0
+    ]
+   },
+   "avg": [
+    54.5,
+    1.2
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "oracle",
+   "method": "SENT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     34.7,
+     2.2
+    ],
+    "AIME 2025": [
+     28.1,
+     1.3
+    ],
+    "AMC 2023": [
+     81.6,
+     1.2
+    ],
+    "MATH-500": [
+     91.2,
+     1.1
+    ],
+    "Minerva Math": [
+     33.0,
+     1.5
+    ],
+    "OlympiadBench": [
+     55.5,
+     1.2
+    ]
+   },
+   "avg": [
+    54.0,
+    1.4
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "oracle",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     37.1,
+     1.2
+    ],
+    "AIME 2025": [
+     29.6,
+     1.9
+    ],
+    "AMC 2023": [
+     82.7,
+     1.3
+    ],
+    "MATH-500": [
+     92.3,
+     1.1
+    ],
+    "Minerva Math": [
+     33.8,
+     3.4
+    ],
+    "OlympiadBench": [
+     58.6,
+     2.5
+    ]
+   },
+   "avg": [
+    55.7,
+    1.9
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "majority_vote",
+   "method": "TTRL",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     24.1,
+     1.2
+    ],
+    "AIME 2025": [
+     21.1,
+     1.6
+    ],
+    "AMC 2023": [
+     64.0,
+     1.7
+    ],
+    "MATH-500": [
+     75.4,
+     0.8
+    ],
+    "Minerva Math": [
+     23.1,
+     0.9
+    ],
+    "OlympiadBench": [
+     39.5,
+     0.6
+    ]
+   },
+   "avg": [
+    41.2,
+    1.1
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "majority_vote",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     40.6,
+     1.7
+    ],
+    "AIME 2025": [
+     34.0,
+     2.5
+    ],
+    "AMC 2023": [
+     87.4,
+     0.9
+    ],
+    "MATH-500": [
+     93.5,
+     1.0
+    ],
+    "Minerva Math": [
+     35.0,
+     0.5
+    ],
+    "OlympiadBench": [
+     60.9,
+     1.3
+    ]
+   },
+   "avg": [
+    58.6,
+    1.3
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "entropy",
+   "method": "RENT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     25.3,
+     0.5
+    ],
+    "AIME 2025": [
+     23.2,
+     0.5
+    ],
+    "AMC 2023": [
+     71.1,
+     1.0
+    ],
+    "MATH-500": [
+     85.3,
+     0.8
+    ],
+    "Minerva Math": [
+     31.5,
+     2.8
+    ],
+    "OlympiadBench": [
+     48.0,
+     2.0
+    ]
+   },
+   "avg": [
+    47.4,
+    1.3
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "entropy",
+   "method": "EMPO",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     34.0,
+     2.4
+    ],
+    "AIME 2025": [
+     28.0,
+     1.3
+    ],
+    "AMC 2023": [
+     73.6,
+     1.5
+    ],
+    "MATH-500": [
+     83.7,
+     1.2
+    ],
+    "Minerva Math": [
+     31.9,
+     2.4
+    ],
+    "OlympiadBench": [
+     41.6,
+     1.3
+    ]
+   },
+   "avg": [
+    48.8,
+    1.7
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "entropy",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     38.0,
+     1.4
+    ],
+    "AIME 2025": [
+     31.0,
+     1.0
+    ],
+    "AMC 2023": [
+     83.8,
+     1.0
+    ],
+    "MATH-500": [
+     92.8,
+     0.3
+    ],
+    "Minerva Math": [
+     32.8,
+     1.1
+    ],
+    "OlympiadBench": [
+     57.8,
+     0.5
+    ]
+   },
+   "avg": [
+    56.0,
+    0.9
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "base",
+   "method": "Base (no RL)",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     5.7,
+     1.2
+    ],
+    "AIME 2025": [
+     0.6,
+     0.4
+    ],
+    "AMC 2023": [
+     17.2,
+     1.5
+    ],
+    "MATH-500": [
+     34.8,
+     0.7
+    ],
+    "Minerva Math": [
+     4.8,
+     0.3
+    ],
+    "OlympiadBench": [
+     12.7,
+     0.2
+    ]
+   },
+   "avg": [
+    12.6,
+    0.7
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "oracle",
+   "method": "No Curriculum",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     6.0,
+     1.0
+    ],
+    "AIME 2025": [
+     1.0,
+     0.4
+    ],
+    "AMC 2023": [
+     24.3,
+     1.7
+    ],
+    "MATH-500": [
+     40.4,
+     0.5
+    ],
+    "Minerva Math": [
+     8.9,
+     0.7
+    ],
+    "OlympiadBench": [
+     15.0,
+     0.5
+    ]
+   },
+   "avg": [
+    15.9,
+    0.8
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "oracle",
+   "method": "VCRL",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     4.0,
+     1.1
+    ],
+    "AIME 2025": [
+     1.3,
+     0.9
+    ],
+    "AMC 2023": [
+     24.1,
+     1.4
+    ],
+    "MATH-500": [
+     37.0,
+     0.3
+    ],
+    "Minerva Math": [
+     7.8,
+     0.2
+    ],
+    "OlympiadBench": [
+     17.1,
+     0.8
+    ]
+   },
+   "avg": [
+    15.2,
+    0.8
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "oracle",
+   "method": "AdaRFT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     4.5,
+     1.6
+    ],
+    "AIME 2025": [
+     1.6,
+     0.7
+    ],
+    "AMC 2023": [
+     25.7,
+     0.4
+    ],
+    "MATH-500": [
+     44.0,
+     0.3
+    ],
+    "Minerva Math": [
+     8.5,
+     0.1
+    ],
+    "OlympiadBench": [
+     17.8,
+     0.7
+    ]
+   },
+   "avg": [
+    17.0,
+    0.6
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "oracle",
+   "method": "SENT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     6.5,
+     0.8
+    ],
+    "AIME 2025": [
+     1.4,
+     0.4
+    ],
+    "AMC 2023": [
+     26.7,
+     1.5
+    ],
+    "MATH-500": [
+     39.9,
+     0.8
+    ],
+    "Minerva Math": [
+     8.7,
+     1.5
+    ],
+    "OlympiadBench": [
+     18.6,
+     1.4
+    ]
+   },
+   "avg": [
+    17.0,
+    1.1
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "oracle",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     6.8,
+     0.9
+    ],
+    "AIME 2025": [
+     1.9,
+     0.3
+    ],
+    "AMC 2023": [
+     29.7,
+     1.1
+    ],
+    "MATH-500": [
+     43.0,
+     0.7
+    ],
+    "Minerva Math": [
+     9.4,
+     1.1
+    ],
+    "OlympiadBench": [
+     19.5,
+     0.7
+    ]
+   },
+   "avg": [
+    18.4,
+    0.8
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "majority_vote",
+   "method": "TTRL",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     5.7,
+     1.3
+    ],
+    "AIME 2025": [
+     0.6,
+     0.6
+    ],
+    "AMC 2023": [
+     18.5,
+     2.3
+    ],
+    "MATH-500": [
+     41.9,
+     1.0
+    ],
+    "Minerva Math": [
+     8.8,
+     0.3
+    ],
+    "OlympiadBench": [
+     15.4,
+     0.6
+    ]
+   },
+   "avg": [
+    15.2,
+    1.0
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "majority_vote",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     5.2,
+     1.1
+    ],
+    "AIME 2025": [
+     0.8,
+     0.5
+    ],
+    "AMC 2023": [
+     19.6,
+     2.3
+    ],
+    "MATH-500": [
+     46.2,
+     1.5
+    ],
+    "Minerva Math": [
+     10.8,
+     0.2
+    ],
+    "OlympiadBench": [
+     15.1,
+     0.6
+    ]
+   },
+   "avg": [
+    16.3,
+    1.0
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "entropy",
+   "method": "RENT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     0.6,
+     0.6
+    ],
+    "AIME 2025": [
+     0.0,
+     0.0
+    ],
+    "AMC 2023": [
+     3.0,
+     1.1
+    ],
+    "MATH-500": [
+     3.2,
+     0.0
+    ],
+    "Minerva Math": [
+     2.1,
+     0.2
+    ],
+    "OlympiadBench": [
+     1.2,
+     0.1
+    ]
+   },
+   "avg": [
+    1.7,
+    0.3
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "entropy",
+   "method": "EMPO",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     2.1,
+     0.5
+    ],
+    "AIME 2025": [
+     0.2,
+     0.1
+    ],
+    "AMC 2023": [
+     8.5,
+     1.2
+    ],
+    "MATH-500": [
+     10.1,
+     1.1
+    ],
+    "Minerva Math": [
+     4.5,
+     0.6
+    ],
+    "OlympiadBench": [
+     5.2,
+     0.8
+    ]
+   },
+   "avg": [
+    5.1,
+    0.7
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "entropy",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     6.2,
+     1.4
+    ],
+    "AIME 2025": [
+     0.8,
+     0.5
+    ],
+    "AMC 2023": [
+     21.6,
+     1.4
+    ],
+    "MATH-500": [
+     42.6,
+     0.9
+    ],
+    "Minerva Math": [
+     9.7,
+     0.4
+    ],
+    "OlympiadBench": [
+     14.7,
+     0.5
+    ]
+   },
+   "avg": [
+    15.9,
+    0.9
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "base",
+   "method": "Base (no RL)",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     12.7,
+     0.9
+    ],
+    "AIME 2025": [
+     5.8,
+     0.7
+    ],
+    "AMC 2023": [
+     44.4,
+     2.2
+    ],
+    "MATH-500": [
+     52.0,
+     0.4
+    ],
+    "Minerva Math": [
+     9.8,
+     0.7
+    ],
+    "OlympiadBench": [
+     26.4,
+     0.4
+    ]
+   },
+   "avg": [
+    25.2,
+    0.9
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "oracle",
+   "method": "No Curriculum",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     29.2,
+     2.5
+    ],
+    "AIME 2025": [
+     13.5,
+     1.2
+    ],
+    "AMC 2023": [
+     62.8,
+     1.9
+    ],
+    "MATH-500": [
+     78.9,
+     0.5
+    ],
+    "Minerva Math": [
+     24.2,
+     0.7
+    ],
+    "OlympiadBench": [
+     37.8,
+     0.5
+    ]
+   },
+   "avg": [
+    41.1,
+    1.2
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "oracle",
+   "method": "VCRL",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     22.0,
+     1.5
+    ],
+    "AIME 2025": [
+     11.1,
+     0.7
+    ],
+    "AMC 2023": [
+     57.0,
+     1.6
+    ],
+    "MATH-500": [
+     75.1,
+     0.5
+    ],
+    "Minerva Math": [
+     22.1,
+     0.7
+    ],
+    "OlympiadBench": [
+     35.6,
+     0.5
+    ]
+   },
+   "avg": [
+    37.2,
+    0.9
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "oracle",
+   "method": "AdaRFT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     26.9,
+     0.6
+    ],
+    "AIME 2025": [
+     12.9,
+     0.7
+    ],
+    "AMC 2023": [
+     63.0,
+     0.8
+    ],
+    "MATH-500": [
+     76.6,
+     1.9
+    ],
+    "Minerva Math": [
+     22.5,
+     6.9
+    ],
+    "OlympiadBench": [
+     39.1,
+     2.6
+    ]
+   },
+   "avg": [
+    40.2,
+    2.3
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "oracle",
+   "method": "SENT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     26.2,
+     0.7
+    ],
+    "AIME 2025": [
+     10.8,
+     0.9
+    ],
+    "AMC 2023": [
+     53.2,
+     1.3
+    ],
+    "MATH-500": [
+     69.2,
+     1.2
+    ],
+    "Minerva Math": [
+     22.4,
+     2.0
+    ],
+    "OlympiadBench": [
+     31.2,
+     1.0
+    ]
+   },
+   "avg": [
+    35.5,
+    1.2
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "oracle",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     29.9,
+     0.9
+    ],
+    "AIME 2025": [
+     13.9,
+     1.4
+    ],
+    "AMC 2023": [
+     63.8,
+     0.5
+    ],
+    "MATH-500": [
+     78.8,
+     0.6
+    ],
+    "Minerva Math": [
+     26.3,
+     5.5
+    ],
+    "OlympiadBench": [
+     45.0,
+     3.0
+    ]
+   },
+   "avg": [
+    43.0,
+    2.0
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "majority_vote",
+   "method": "TTRL",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     29.0,
+     1.5
+    ],
+    "AIME 2025": [
+     14.0,
+     1.0
+    ],
+    "AMC 2023": [
+     64.8,
+     1.4
+    ],
+    "MATH-500": [
+     80.5,
+     0.4
+    ],
+    "Minerva Math": [
+     22.8,
+     0.3
+    ],
+    "OlympiadBench": [
+     39.5,
+     0.4
+    ]
+   },
+   "avg": [
+    41.8,
+    0.8
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "majority_vote",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     33.9,
+     0.7
+    ],
+    "AIME 2025": [
+     14.4,
+     0.9
+    ],
+    "AMC 2023": [
+     65.4,
+     0.4
+    ],
+    "MATH-500": [
+     79.8,
+     0.5
+    ],
+    "Minerva Math": [
+     25.9,
+     0.6
+    ],
+    "OlympiadBench": [
+     41.2,
+     0.4
+    ]
+   },
+   "avg": [
+    43.4,
+    0.6
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "entropy",
+   "method": "RENT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     13.7,
+     0.6
+    ],
+    "AIME 2025": [
+     7.2,
+     0.4
+    ],
+    "AMC 2023": [
+     55.7,
+     1.1
+    ],
+    "MATH-500": [
+     74.4,
+     2.1
+    ],
+    "Minerva Math": [
+     24.8,
+     4.5
+    ],
+    "OlympiadBench": [
+     32.9,
+     4.4
+    ]
+   },
+   "avg": [
+    34.8,
+    2.2
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "entropy",
+   "method": "EMPO",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     18.5,
+     1.5
+    ],
+    "AIME 2025": [
+     9.4,
+     0.8
+    ],
+    "AMC 2023": [
+     58.2,
+     2.0
+    ],
+    "MATH-500": [
+     75.1,
+     1.2
+    ],
+    "Minerva Math": [
+     21.0,
+     2.5
+    ],
+    "OlympiadBench": [
+     34.5,
+     1.8
+    ]
+   },
+   "avg": [
+    36.1,
+    1.6
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@1",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "entropy",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     25.0,
+     1.8
+    ],
+    "AIME 2025": [
+     13.1,
+     1.1
+    ],
+    "AMC 2023": [
+     63.0,
+     2.8
+    ],
+    "MATH-500": [
+     76.8,
+     0.6
+    ],
+    "Minerva Math": [
+     19.1,
+     5.0
+    ],
+    "OlympiadBench": [
+     37.0,
+     0.7
+    ]
+   },
+   "avg": [
+    39.0,
+    2.0
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "base",
+   "method": "Base (no RL)",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     32.4,
+     0.5
+    ],
+    "AIME 2025": [
+     16.7,
+     0.7
+    ],
+    "AMC 2023": [
+     79.3,
+     1.4
+    ],
+    "MATH-500": [
+     62.8,
+     1.3
+    ],
+    "Minerva Math": [
+     15.5,
+     1.1
+    ],
+    "OlympiadBench": [
+     31.3,
+     0.8
+    ]
+   },
+   "avg": [
+    39.7,
+    1.0
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "oracle",
+   "method": "No Curriculum",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     34.3,
+     1.2
+    ],
+    "AIME 2025": [
+     19.9,
+     1.1
+    ],
+    "AMC 2023": [
+     80.7,
+     1.4
+    ],
+    "MATH-500": [
+     69.6,
+     0.5
+    ],
+    "Minerva Math": [
+     18.0,
+     0.6
+    ],
+    "OlympiadBench": [
+     32.8,
+     1.2
+    ]
+   },
+   "avg": [
+    42.6,
+    1.0
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "oracle",
+   "method": "VCRL",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     32.2,
+     0.5
+    ],
+    "AIME 2025": [
+     19.8,
+     1.0
+    ],
+    "AMC 2023": [
+     79.0,
+     0.9
+    ],
+    "MATH-500": [
+     70.2,
+     1.1
+    ],
+    "Minerva Math": [
+     20.4,
+     1.0
+    ],
+    "OlympiadBench": [
+     34.0,
+     1.1
+    ]
+   },
+   "avg": [
+    42.6,
+    0.9
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "oracle",
+   "method": "AdaRFT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     32.1,
+     0.4
+    ],
+    "AIME 2025": [
+     17.9,
+     1.5
+    ],
+    "AMC 2023": [
+     77.5,
+     1.0
+    ],
+    "MATH-500": [
+     72.4,
+     0.9
+    ],
+    "Minerva Math": [
+     21.7,
+     0.9
+    ],
+    "OlympiadBench": [
+     34.4,
+     0.5
+    ]
+   },
+   "avg": [
+    42.7,
+    0.9
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "oracle",
+   "method": "SENT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     35.0,
+     0.4
+    ],
+    "AIME 2025": [
+     26.7,
+     0.4
+    ],
+    "AMC 2023": [
+     82.5,
+     0.7
+    ],
+    "MATH-500": [
+     71.4,
+     0.7
+    ],
+    "Minerva Math": [
+     15.3,
+     1.4
+    ],
+    "OlympiadBench": [
+     33.2,
+     0.9
+    ]
+   },
+   "avg": [
+    44.0,
+    0.8
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "oracle",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     35.2,
+     1.4
+    ],
+    "AIME 2025": [
+     24.6,
+     0.2
+    ],
+    "AMC 2023": [
+     82.5,
+     1.2
+    ],
+    "MATH-500": [
+     71.3,
+     1.8
+    ],
+    "Minerva Math": [
+     26.9,
+     1.3
+    ],
+    "OlympiadBench": [
+     37.9,
+     4.0
+    ]
+   },
+   "avg": [
+    46.4,
+    1.7
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "base",
+   "method": "Base (no RL)",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     44.8,
+     0.8
+    ],
+    "AIME 2025": [
+     32.8,
+     0.7
+    ],
+    "AMC 2023": [
+     88.2,
+     0.1
+    ],
+    "MATH-500": [
+     85.9,
+     0.6
+    ],
+    "Minerva Math": [
+     27.8,
+     0.3
+    ],
+    "OlympiadBench": [
+     48.6,
+     0.3
+    ]
+   },
+   "avg": [
+    54.7,
+    0.5
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "oracle",
+   "method": "No Curriculum",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     55.1,
+     0.6
+    ],
+    "AIME 2025": [
+     40.1,
+     0.4
+    ],
+    "AMC 2023": [
+     96.1,
+     0.2
+    ],
+    "MATH-500": [
+     96.6,
+     0.1
+    ],
+    "Minerva Math": [
+     44.6,
+     0.1
+    ],
+    "OlympiadBench": [
+     64.9,
+     0.1
+    ]
+   },
+   "avg": [
+    66.2,
+    0.3
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "oracle",
+   "method": "VCRL",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     55.0,
+     0.9
+    ],
+    "AIME 2025": [
+     42.1,
+     0.9
+    ],
+    "AMC 2023": [
+     96.8,
+     1.1
+    ],
+    "MATH-500": [
+     97.5,
+     0.5
+    ],
+    "Minerva Math": [
+     42.3,
+     1.7
+    ],
+    "OlympiadBench": [
+     66.9,
+     3.5
+    ]
+   },
+   "avg": [
+    66.8,
+    1.4
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "oracle",
+   "method": "AdaRFT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     57.4,
+     1.3
+    ],
+    "AIME 2025": [
+     43.2,
+     1.9
+    ],
+    "AMC 2023": [
+     97.9,
+     0.3
+    ],
+    "MATH-500": [
+     98.3,
+     0.7
+    ],
+    "Minerva Math": [
+     46.9,
+     1.0
+    ],
+    "OlympiadBench": [
+     70.0,
+     1.2
+    ]
+   },
+   "avg": [
+    69.0,
+    1.1
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "oracle",
+   "method": "SENT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     57.1,
+     0.7
+    ],
+    "AIME 2025": [
+     39.9,
+     1.5
+    ],
+    "AMC 2023": [
+     97.1,
+     0.9
+    ],
+    "MATH-500": [
+     98.1,
+     0.7
+    ],
+    "Minerva Math": [
+     49.6,
+     1.3
+    ],
+    "OlympiadBench": [
+     71.4,
+     0.8
+    ]
+   },
+   "avg": [
+    68.9,
+    1.0
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "oracle",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     60.9,
+     2.3
+    ],
+    "AIME 2025": [
+     45.5,
+     2.6
+    ],
+    "AMC 2023": [
+     98.9,
+     1.3
+    ],
+    "MATH-500": [
+     98.8,
+     0.4
+    ],
+    "Minerva Math": [
+     51.3,
+     1.3
+    ],
+    "OlympiadBench": [
+     72.8,
+     1.5
+    ]
+   },
+   "avg": [
+    71.4,
+    1.6
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "base",
+   "method": "Base (no RL)",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     18.8,
+     1.1
+    ],
+    "AIME 2025": [
+     3.3,
+     0.2
+    ],
+    "AMC 2023": [
+     54.7,
+     1.4
+    ],
+    "MATH-500": [
+     40.8,
+     0.8
+    ],
+    "Minerva Math": [
+     5.2,
+     1.1
+    ],
+    "OlympiadBench": [
+     16.4,
+     0.5
+    ]
+   },
+   "avg": [
+    23.2,
+    0.9
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "oracle",
+   "method": "No Curriculum",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     22.4,
+     1.0
+    ],
+    "AIME 2025": [
+     6.7,
+     1.4
+    ],
+    "AMC 2023": [
+     60.0,
+     1.3
+    ],
+    "MATH-500": [
+     44.8,
+     0.6
+    ],
+    "Minerva Math": [
+     13.3,
+     0.7
+    ],
+    "OlympiadBench": [
+     18.7,
+     1.5
+    ]
+   },
+   "avg": [
+    27.7,
+    1.1
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "oracle",
+   "method": "VCRL",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     23.5,
+     0.4
+    ],
+    "AIME 2025": [
+     8.2,
+     1.1
+    ],
+    "AMC 2023": [
+     61.4,
+     1.3
+    ],
+    "MATH-500": [
+     45.9,
+     0.9
+    ],
+    "Minerva Math": [
+     15.3,
+     0.7
+    ],
+    "OlympiadBench": [
+     17.5,
+     0.5
+    ]
+   },
+   "avg": [
+    28.6,
+    0.8
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "oracle",
+   "method": "AdaRFT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     24.9,
+     1.8
+    ],
+    "AIME 2025": [
+     8.0,
+     0.7
+    ],
+    "AMC 2023": [
+     67.9,
+     1.4
+    ],
+    "MATH-500": [
+     45.6,
+     0.2
+    ],
+    "Minerva Math": [
+     16.3,
+     1.9
+    ],
+    "OlympiadBench": [
+     18.1,
+     1.6
+    ]
+   },
+   "avg": [
+    30.1,
+    1.3
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "oracle",
+   "method": "SENT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     25.1,
+     0.8
+    ],
+    "AIME 2025": [
+     8.1,
+     0.7
+    ],
+    "AMC 2023": [
+     62.2,
+     1.0
+    ],
+    "MATH-500": [
+     48.0,
+     1.5
+    ],
+    "Minerva Math": [
+     14.6,
+     0.4
+    ],
+    "OlympiadBench": [
+     20.1,
+     1.0
+    ]
+   },
+   "avg": [
+    29.7,
+    0.9
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "oracle",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     26.1,
+     0.8
+    ],
+    "AIME 2025": [
+     9.3,
+     0.7
+    ],
+    "AMC 2023": [
+     63.1,
+     1.4
+    ],
+    "MATH-500": [
+     49.6,
+     1.4
+    ],
+    "Minerva Math": [
+     17.1,
+     0.8
+    ],
+    "OlympiadBench": [
+     22.9,
+     1.2
+    ]
+   },
+   "avg": [
+    31.4,
+    1.1
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "base",
+   "method": "Base (no RL)",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     36.2,
+     1.2
+    ],
+    "AIME 2025": [
+     23.3,
+     1.0
+    ],
+    "AMC 2023": [
+     81.9,
+     1.3
+    ],
+    "MATH-500": [
+     66.6,
+     0.5
+    ],
+    "Minerva Math": [
+     11.8,
+     0.6
+    ],
+    "OlympiadBench": [
+     33.9,
+     0.7
+    ]
+   },
+   "avg": [
+    42.3,
+    0.9
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "oracle",
+   "method": "No Curriculum",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     50.0,
+     0.1
+    ],
+    "AIME 2025": [
+     28.7,
+     0.8
+    ],
+    "AMC 2023": [
+     83.4,
+     0.6
+    ],
+    "MATH-500": [
+     82.8,
+     0.5
+    ],
+    "Minerva Math": [
+     29.0,
+     1.1
+    ],
+    "OlympiadBench": [
+     45.8,
+     1.3
+    ]
+   },
+   "avg": [
+    53.3,
+    0.7
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "oracle",
+   "method": "VCRL",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     48.3,
+     1.4
+    ],
+    "AIME 2025": [
+     23.3,
+     0.5
+    ],
+    "AMC 2023": [
+     84.7,
+     0.6
+    ],
+    "MATH-500": [
+     79.8,
+     1.5
+    ],
+    "Minerva Math": [
+     24.3,
+     0.4
+    ],
+    "OlympiadBench": [
+     41.0,
+     0.2
+    ]
+   },
+   "avg": [
+    50.2,
+    0.8
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "oracle",
+   "method": "AdaRFT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     50.0,
+     3.1
+    ],
+    "AIME 2025": [
+     27.9,
+     3.0
+    ],
+    "AMC 2023": [
+     85.0,
+     1.5
+    ],
+    "MATH-500": [
+     78.0,
+     2.0
+    ],
+    "Minerva Math": [
+     22.8,
+     6.6
+    ],
+    "OlympiadBench": [
+     44.5,
+     1.1
+    ]
+   },
+   "avg": [
+    51.4,
+    2.9
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "oracle",
+   "method": "SENT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     55.7,
+     1.9
+    ],
+    "AIME 2025": [
+     17.5,
+     0.7
+    ],
+    "AMC 2023": [
+     64.7,
+     0.8
+    ],
+    "MATH-500": [
+     85.8,
+     0.2
+    ],
+    "Minerva Math": [
+     35.7,
+     0.7
+    ],
+    "OlympiadBench": [
+     50.2,
+     0.8
+    ]
+   },
+   "avg": [
+    51.6,
+    0.9
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "oracle",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     56.4,
+     1.3
+    ],
+    "AIME 2025": [
+     30.8,
+     0.2
+    ],
+    "AMC 2023": [
+     88.8,
+     0.7
+    ],
+    "MATH-500": [
+     82.6,
+     0.4
+    ],
+    "Minerva Math": [
+     37.1,
+     0.9
+    ],
+    "OlympiadBench": [
+     51.4,
+     1.2
+    ]
+   },
+   "avg": [
+    57.9,
+    0.8
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "majority_vote",
+   "method": "TTRL",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     0.0,
+     0.0
+    ],
+    "AIME 2025": [
+     0.0,
+     0.0
+    ],
+    "AMC 2023": [
+     0.0,
+     0.0
+    ],
+    "MATH-500": [
+     0.6,
+     0.2
+    ],
+    "Minerva Math": [
+     1.1,
+     0.4
+    ],
+    "OlympiadBench": [
+     0.0,
+     0.0
+    ]
+   },
+   "avg": [
+    0.3,
+    0.1
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "majority_vote",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     35.0,
+     0.2
+    ],
+    "AIME 2025": [
+     26.1,
+     2.0
+    ],
+    "AMC 2023": [
+     81.2,
+     0.6
+    ],
+    "MATH-500": [
+     73.9,
+     1.3
+    ],
+    "Minerva Math": [
+     22.1,
+     4.6
+    ],
+    "OlympiadBench": [
+     37.1,
+     1.0
+    ]
+   },
+   "avg": [
+    45.9,
+    1.6
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "entropy",
+   "method": "RENT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     0.0,
+     0.0
+    ],
+    "AIME 2025": [
+     0.0,
+     0.0
+    ],
+    "AMC 2023": [
+     12.9,
+     0.7
+    ],
+    "MATH-500": [
+     11.7,
+     1.3
+    ],
+    "Minerva Math": [
+     8.6,
+     0.9
+    ],
+    "OlympiadBench": [
+     5.7,
+     0.8
+    ]
+   },
+   "avg": [
+    6.5,
+    0.6
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "entropy",
+   "method": "EMPO",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     12.5,
+     1.5
+    ],
+    "AIME 2025": [
+     8.2,
+     1.1
+    ],
+    "AMC 2023": [
+     25.4,
+     2.5
+    ],
+    "MATH-500": [
+     28.6,
+     2.1
+    ],
+    "Minerva Math": [
+     10.2,
+     1.8
+    ],
+    "OlympiadBench": [
+     14.5,
+     1.5
+    ]
+   },
+   "avg": [
+    16.6,
+    1.8
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-1.5B",
+   "setting": "entropy",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     33.1,
+     0.1
+    ],
+    "AIME 2025": [
+     21.4,
+     1.7
+    ],
+    "AMC 2023": [
+     81.7,
+     0.5
+    ],
+    "MATH-500": [
+     71.7,
+     0.4
+    ],
+    "Minerva Math": [
+     26.2,
+     1.0
+    ],
+    "OlympiadBench": [
+     35.5,
+     0.8
+    ]
+   },
+   "avg": [
+    44.9,
+    0.8
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "majority_vote",
+   "method": "TTRL",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     38.7,
+     0.6
+    ],
+    "AIME 2025": [
+     30.7,
+     0.9
+    ],
+    "AMC 2023": [
+     90.8,
+     0.8
+    ],
+    "MATH-500": [
+     91.9,
+     0.2
+    ],
+    "Minerva Math": [
+     36.9,
+     0.9
+    ],
+    "OlympiadBench": [
+     52.5,
+     1.7
+    ]
+   },
+   "avg": [
+    56.9,
+    0.9
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "majority_vote",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     62.8,
+     0.8
+    ],
+    "AIME 2025": [
+     50.5,
+     0.8
+    ],
+    "AMC 2023": [
+     99.3,
+     0.5
+    ],
+    "MATH-500": [
+     98.4,
+     1.1
+    ],
+    "Minerva Math": [
+     47.6,
+     0.7
+    ],
+    "OlympiadBench": [
+     71.9,
+     1.5
+    ]
+   },
+   "avg": [
+    71.8,
+    0.9
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "entropy",
+   "method": "RENT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     38.0,
+     1.0
+    ],
+    "AIME 2025": [
+     25.1,
+     0.2
+    ],
+    "AMC 2023": [
+     90.5,
+     0.8
+    ],
+    "MATH-500": [
+     95.0,
+     0.8
+    ],
+    "Minerva Math": [
+     43.6,
+     1.8
+    ],
+    "OlympiadBench": [
+     59.9,
+     1.1
+    ]
+   },
+   "avg": [
+    58.7,
+    1.0
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "entropy",
+   "method": "EMPO",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     48.6,
+     2.5
+    ],
+    "AIME 2025": [
+     35.1,
+     2.2
+    ],
+    "AMC 2023": [
+     91.7,
+     1.5
+    ],
+    "MATH-500": [
+     96.4,
+     0.4
+    ],
+    "Minerva Math": [
+     44.0,
+     1.6
+    ],
+    "OlympiadBench": [
+     57.4,
+     1.1
+    ]
+   },
+   "avg": [
+    62.2,
+    1.6
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+   "setting": "entropy",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     62.1,
+     1.1
+    ],
+    "AIME 2025": [
+     47.3,
+     1.0
+    ],
+    "AMC 2023": [
+     97.6,
+     0.2
+    ],
+    "MATH-500": [
+     98.8,
+     0.1
+    ],
+    "Minerva Math": [
+     45.8,
+     0.3
+    ],
+    "OlympiadBench": [
+     70.4,
+     1.0
+    ]
+   },
+   "avg": [
+    70.3,
+    0.6
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "majority_vote",
+   "method": "TTRL",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     23.3,
+     0.3
+    ],
+    "AIME 2025": [
+     3.3,
+     0.7
+    ],
+    "AMC 2023": [
+     53.8,
+     0.5
+    ],
+    "MATH-500": [
+     50.6,
+     0.8
+    ],
+    "Minerva Math": [
+     10.7,
+     1.0
+    ],
+    "OlympiadBench": [
+     24.0,
+     1.3
+    ]
+   },
+   "avg": [
+    27.6,
+    0.8
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "majority_vote",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     20.4,
+     0.8
+    ],
+    "AIME 2025": [
+     4.6,
+     0.6
+    ],
+    "AMC 2023": [
+     58.1,
+     0.9
+    ],
+    "MATH-500": [
+     54.2,
+     0.7
+    ],
+    "Minerva Math": [
+     14.0,
+     0.8
+    ],
+    "OlympiadBench": [
+     23.3,
+     1.4
+    ]
+   },
+   "avg": [
+    29.1,
+    0.9
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "entropy",
+   "method": "RENT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     2.4,
+     0.9
+    ],
+    "AIME 2025": [
+     0.0,
+     0.0
+    ],
+    "AMC 2023": [
+     15.9,
+     1.2
+    ],
+    "MATH-500": [
+     5.4,
+     1.6
+    ],
+    "Minerva Math": [
+     4.2,
+     0.5
+    ],
+    "OlympiadBench": [
+     1.5,
+     0.6
+    ]
+   },
+   "avg": [
+    4.9,
+    0.8
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "entropy",
+   "method": "EMPO",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     8.5,
+     1.2
+    ],
+    "AIME 2025": [
+     1.1,
+     0.3
+    ],
+    "AMC 2023": [
+     25.4,
+     2.0
+    ],
+    "MATH-500": [
+     18.5,
+     1.5
+    ],
+    "Minerva Math": [
+     6.5,
+     1.1
+    ],
+    "OlympiadBench": [
+     8.4,
+     1.0
+    ]
+   },
+   "avg": [
+    11.4,
+    1.2
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "entropy",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     20.8,
+     0.9
+    ],
+    "AIME 2025": [
+     5.2,
+     1.0
+    ],
+    "AMC 2023": [
+     56.9,
+     1.3
+    ],
+    "MATH-500": [
+     50.2,
+     0.1
+    ],
+    "Minerva Math": [
+     12.9,
+     0.7
+    ],
+    "OlympiadBench": [
+     21.8,
+     0.7
+    ]
+   },
+   "avg": [
+    28.0,
+    0.8
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "majority_vote",
+   "method": "TTRL",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     53.8,
+     0.7
+    ],
+    "AIME 2025": [
+     28.7,
+     0.9
+    ],
+    "AMC 2023": [
+     82.8,
+     1.3
+    ],
+    "MATH-500": [
+     81.4,
+     0.1
+    ],
+    "Minerva Math": [
+     23.2,
+     0.6
+    ],
+    "OlympiadBench": [
+     41.9,
+     0.7
+    ]
+   },
+   "avg": [
+    52.0,
+    0.7
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "majority_vote",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     55.5,
+     2.1
+    ],
+    "AIME 2025": [
+     31.7,
+     0.1
+    ],
+    "AMC 2023": [
+     88.2,
+     1.0
+    ],
+    "MATH-500": [
+     81.6,
+     0.8
+    ],
+    "Minerva Math": [
+     27.9,
+     0.6
+    ],
+    "OlympiadBench": [
+     49.1,
+     3.7
+    ]
+   },
+   "avg": [
+    55.7,
+    1.4
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "entropy",
+   "method": "RENT",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     28.8,
+     1.4
+    ],
+    "AIME 2025": [
+     17.9,
+     2.5
+    ],
+    "AMC 2023": [
+     71.5,
+     3.2
+    ],
+    "MATH-500": [
+     74.6,
+     2.3
+    ],
+    "Minerva Math": [
+     25.4,
+     5.0
+    ],
+    "OlympiadBench": [
+     35.2,
+     4.2
+    ]
+   },
+   "avg": [
+    42.2,
+    3.1
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "entropy",
+   "method": "EMPO",
+   "ours": false,
+   "scores": {
+    "AIME 2024": [
+     35.2,
+     2.5
+    ],
+    "AIME 2025": [
+     22.4,
+     1.8
+    ],
+    "AMC 2023": [
+     76.5,
+     2.2
+    ],
+    "MATH-500": [
+     78.2,
+     1.5
+    ],
+    "Minerva Math": [
+     22.5,
+     3.1
+    ],
+    "OlympiadBench": [
+     39.5,
+     2.0
+    ]
+   },
+   "avg": [
+    45.7,
+    2.2
+   ]
+  },
+  {
+   "domain": "math",
+   "metric": "pass@8",
+   "model": "Qwen2.5-Math-7B",
+   "setting": "entropy",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "AIME 2024": [
+     48.4,
+     3.9
+    ],
+    "AIME 2025": [
+     30.0,
+     1.4
+    ],
+    "AMC 2023": [
+     85.0,
+     0.3
+    ],
+    "MATH-500": [
+     80.6,
+     0.3
+    ],
+    "Minerva Math": [
+     24.6,
+     0.7
+    ],
+    "OlympiadBench": [
+     43.4,
+     0.8
+    ]
+   },
+   "avg": [
+    52.0,
+    1.2
+   ]
+  },
+  {
+   "domain": "general",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "base",
+   "method": "Base (no RL)",
+   "ours": false,
+   "scores": {
+    "MMLU-Pro": [
+     34.8,
+     0.4
+    ],
+    "GPQA-Diamond": [
+     25.3,
+     0.3
+    ],
+    "TheoremQA": [
+     5.1,
+     0.2
+    ],
+    "WebInstruct-Val": [
+     20.6,
+     0.4
+    ]
+   },
+   "avg": [
+    21.5,
+    0.3
+   ]
+  },
+  {
+   "domain": "general",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "oracle",
+   "method": "No Curriculum",
+   "ours": false,
+   "scores": {
+    "MMLU-Pro": [
+     36.2,
+     0.5
+    ],
+    "GPQA-Diamond": [
+     26.3,
+     0.2
+    ],
+    "TheoremQA": [
+     10.4,
+     0.4
+    ],
+    "WebInstruct-Val": [
+     26.0,
+     0.5
+    ]
+   },
+   "avg": [
+    24.7,
+    0.4
+   ]
+  },
+  {
+   "domain": "general",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "oracle",
+   "method": "VCRL",
+   "ours": false,
+   "scores": {
+    "MMLU-Pro": [
+     36.5,
+     0.6
+    ],
+    "GPQA-Diamond": [
+     26.6,
+     0.2
+    ],
+    "TheoremQA": [
+     11.4,
+     0.4
+    ],
+    "WebInstruct-Val": [
+     22.6,
+     0.5
+    ]
+   },
+   "avg": [
+    24.3,
+    0.4
+   ]
+  },
+  {
+   "domain": "general",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "oracle",
+   "method": "AdaRFT",
+   "ours": false,
+   "scores": {
+    "MMLU-Pro": [
+     36.9,
+     0.3
+    ],
+    "GPQA-Diamond": [
+     25.3,
+     0.5
+    ],
+    "TheoremQA": [
+     11.5,
+     0.6
+    ],
+    "WebInstruct-Val": [
+     22.4,
+     0.3
+    ]
+   },
+   "avg": [
+    24.0,
+    0.4
+   ]
+  },
+  {
+   "domain": "general",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "oracle",
+   "method": "SENT",
+   "ours": false,
+   "scores": {
+    "MMLU-Pro": [
+     37.5,
+     0.7
+    ],
+    "GPQA-Diamond": [
+     25.8,
+     0.4
+    ],
+    "TheoremQA": [
+     9.0,
+     0.3
+    ],
+    "WebInstruct-Val": [
+     28.6,
+     0.6
+    ]
+   },
+   "avg": [
+    25.2,
+    0.5
+   ]
+  },
+  {
+   "domain": "general",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "oracle",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "MMLU-Pro": [
+     37.8,
+     0.5
+    ],
+    "GPQA-Diamond": [
+     27.8,
+     0.6
+    ],
+    "TheoremQA": [
+     13.2,
+     0.4
+    ],
+    "WebInstruct-Val": [
+     28.4,
+     0.5
+    ]
+   },
+   "avg": [
+    26.8,
+    0.5
+   ]
+  },
+  {
+   "domain": "general",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "majority_vote",
+   "method": "TTRL",
+   "ours": false,
+   "scores": {
+    "MMLU-Pro": [
+     24.5,
+     0.3
+    ],
+    "GPQA-Diamond": [
+     24.3,
+     0.2
+    ],
+    "TheoremQA": [
+     1.5,
+     0.2
+    ],
+    "WebInstruct-Val": [
+     0.6,
+     0.2
+    ]
+   },
+   "avg": [
+    12.7,
+    0.2
+   ]
+  },
+  {
+   "domain": "general",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "majority_vote",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "MMLU-Pro": [
+     35.6,
+     0.5
+    ],
+    "GPQA-Diamond": [
+     26.7,
+     0.4
+    ],
+    "TheoremQA": [
+     9.5,
+     0.3
+    ],
+    "WebInstruct-Val": [
+     21.4,
+     0.5
+    ]
+   },
+   "avg": [
+    23.3,
+    0.4
+   ]
+  },
+  {
+   "domain": "general",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "entropy",
+   "method": "RENT",
+   "ours": false,
+   "scores": {
+    "MMLU-Pro": [
+     0.0,
+     0.0
+    ],
+    "GPQA-Diamond": [
+     8.3,
+     0.4
+    ],
+    "TheoremQA": [
+     0.0,
+     0.0
+    ],
+    "WebInstruct-Val": [
+     0.0,
+     0.0
+    ]
+   },
+   "avg": [
+    2.1,
+    0.1
+   ]
+  },
+  {
+   "domain": "general",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "entropy",
+   "method": "EMPO",
+   "ours": false,
+   "scores": {
+    "MMLU-Pro": [
+     10.3,
+     0.5
+    ],
+    "GPQA-Diamond": [
+     17.5,
+     0.6
+    ],
+    "TheoremQA": [
+     0.0,
+     0.0
+    ],
+    "WebInstruct-Val": [
+     11.0,
+     0.4
+    ]
+   },
+   "avg": [
+    9.7,
+    0.4
+   ]
+  },
+  {
+   "domain": "general",
+   "metric": "pass@1",
+   "model": "Llama-3.2-3B-Instruct",
+   "setting": "entropy",
+   "method": "VI-CuRL",
+   "ours": true,
+   "scores": {
+    "MMLU-Pro": [
+     35.6,
+     0.4
+    ],
+    "GPQA-Diamond": [
+     25.7,
+     0.5
+    ],
+    "TheoremQA": [
+     9.5,
+     0.3
+    ],
+    "WebInstruct-Val": [
+     21.4,
+     0.4
+    ]
+   },
+   "avg": [
+    23.1,
+    0.4
+   ]
+  }
+ ],
+ "ablation": {
+  "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+  "reward": "RENT (entropy)",
+  "rows": [
+   {
+    "setting": "RENT / No Curriculum",
+    "ours": false,
+    "pass1": {
+     "AIME 2024": 25.3,
+     "AIME 2025": 23.2,
+     "AMC 2023": 71.1,
+     "MATH-500": 85.3,
+     "Minerva Math": 31.5,
+     "OlympiadBench": 48.0
+    },
+    "pass1_avg": 47.4,
+    "pass8": {
+     "AIME 2024": 38.0,
+     "AIME 2025": 25.1,
+     "AMC 2023": 90.5,
+     "MATH-500": 95.0,
+     "Minerva Math": 43.6,
+     "OlympiadBench": 59.9
+    },
+    "pass8_avg": 58.7
+   },
+   {
+    "setting": "RENT / Length-First Filter",
+    "ours": false,
+    "pass1": {
+     "AIME 2024": 29.6,
+     "AIME 2025": 23.6,
+     "AMC 2023": 77.0,
+     "MATH-500": 88.7,
+     "Minerva Math": 30.1,
+     "OlympiadBench": 51.1
+    },
+    "pass1_avg": 50.0,
+    "pass8": {
+     "AIME 2024": 45.4,
+     "AIME 2025": 30.5,
+     "AMC 2023": 93.6,
+     "MATH-500": 97.1,
+     "Minerva Math": 42.8,
+     "OlympiadBench": 63.1
+    },
+    "pass8_avg": 62.1
+   },
+   {
+    "setting": "RENT / Random Filter",
+    "ours": false,
+    "pass1": {
+     "AIME 2024": 25.5,
+     "AIME 2025": 22.6,
+     "AMC 2023": 71.9,
+     "MATH-500": 85.2,
+     "Minerva Math": 31.4,
+     "OlympiadBench": 48.2
+    },
+    "pass1_avg": 47.5,
+    "pass8": {
+     "AIME 2024": 38.5,
+     "AIME 2025": 25.1,
+     "AMC 2023": 90.8,
+     "MATH-500": 95.4,
+     "Minerva Math": 44.0,
+     "OlympiadBench": 60.1
+    },
+    "pass8_avg": 59.0
+   },
+   {
+    "setting": "RENT / Reverse-Confidence",
+    "ours": false,
+    "pass1": {
+     "AIME 2024": 24.9,
+     "AIME 2025": 21.6,
+     "AMC 2023": 70.1,
+     "MATH-500": 85.1,
+     "Minerva Math": 29.9,
+     "OlympiadBench": 47.5
+    },
+    "pass1_avg": 46.5,
+    "pass8": {
+     "AIME 2024": 37.5,
+     "AIME 2025": 25.6,
+     "AMC 2023": 90.0,
+     "MATH-500": 95.0,
+     "Minerva Math": 43.3,
+     "OlympiadBench": 59.4
+    },
+    "pass8_avg": 58.5
+   },
+   {
+    "setting": "VI-CuRL / RENT",
+    "ours": true,
+    "pass1": {
+     "AIME 2024": 38.0,
+     "AIME 2025": 31.0,
+     "AMC 2023": 83.8,
+     "MATH-500": 92.8,
+     "Minerva Math": 32.8,
+     "OlympiadBench": 57.8
+    },
+    "pass1_avg": 56.0,
+    "pass8": {
+     "AIME 2024": 62.1,
+     "AIME 2025": 47.3,
+     "AMC 2023": 97.6,
+     "MATH-500": 98.8,
+     "Minerva Math": 45.8,
+     "OlympiadBench": 70.4
+    },
+    "pass8_avg": 70.3
+   }
+  ]
+ },
+ "mechanism": {
+  "t_ref_step": 313,
+  "t_long_step": 626,
+  "rollouts": 16,
+  "reward": "RENT (entropy)",
+  "summary": [
+   {
+    "setting": "RENT / No Curriculum",
+    "ours": false,
+    "p1_tref": 4.8,
+    "p1_tlong": 2.6,
+    "best_p1": 32.8,
+    "change": -2.2,
+    "aulc": 1.0
+   },
+   {
+    "setting": "RENT / Static Conf. Filter",
+    "ours": false,
+    "p1_tref": 30.2,
+    "p1_tlong": 7.8,
+    "best_p1": 30.2,
+    "change": -22.4,
+    "aulc": 3.3
+   },
+   {
+    "setting": "RENT / Soft Conf. Weighting",
+    "ours": false,
+    "p1_tref": 13.8,
+    "p1_tlong": 3.6,
+    "best_p1": 30.5,
+    "change": -10.2,
+    "aulc": 1.9
+   },
+   {
+    "setting": "VI-CuRL / RENT",
+    "ours": true,
+    "p1_tref": 31.7,
+    "p1_tlong": 32.5,
+    "best_p1": 36.7,
+    "change": 0.8,
+    "aulc": 13.0
+   }
+  ],
+  "breakdown_tlong": [
+   {
+    "setting": "RENT / No Curriculum",
+    "ours": false,
+    "pass1_tlong": {
+     "AIME 2024": 0.0,
+     "AIME 2025": 0.0,
+     "AMC 2023": 5.1,
+     "MATH-500": 4.0,
+     "Minerva Math": 4.2,
+     "OlympiadBench": 2.5
+    }
+   },
+   {
+    "setting": "RENT / Static Conf. Filter",
+    "ours": false,
+    "pass1_tlong": {
+     "AIME 2024": 0.3,
+     "AIME 2025": 1.2,
+     "AMC 2023": 22.6,
+     "MATH-500": 8.6,
+     "Minerva Math": 9.5,
+     "OlympiadBench": 4.3
+    }
+   },
+   {
+    "setting": "RENT / Soft Conf. Weighting",
+    "ours": false,
+    "pass1_tlong": {
+     "AIME 2024": 0.0,
+     "AIME 2025": 0.0,
+     "AMC 2023": 7.8,
+     "MATH-500": 7.2,
+     "Minerva Math": 4.1,
+     "OlympiadBench": 2.6
+    }
+   },
+   {
+    "setting": "VI-CuRL / RENT",
+    "ours": true,
+    "pass1_tlong": {
+     "AIME 2024": 14.3,
+     "AIME 2025": 5.4,
+     "AMC 2023": 51.3,
+     "MATH-500": 70.4,
+     "Minerva Math": 20.5,
+     "OlympiadBench": 33.1
+    }
+   }
+  ]
+ },
+ "long_output": {
+  "model": "DeepSeek-R1-Distill-Qwen-1.5B",
+  "reward": "RENT (entropy)",
+  "accuracy": [
+   {
+    "setting": "RENT",
+    "max_new_tokens": 3072,
+    "pass1": {
+     "AIME 2024": 25.3,
+     "AIME 2025": 23.2,
+     "AMC 2023": 71.1,
+     "MATH-500": 85.3,
+     "Minerva Math": 31.5,
+     "OlympiadBench": 48.0
+    },
+    "avg": 47.4
+   },
+   {
+    "setting": "RENT",
+    "max_new_tokens": 8192,
+    "pass1": {
+     "AIME 2024": 25.8,
+     "AIME 2025": 23.2,
+     "AMC 2023": 71.9,
+     "MATH-500": 86.1,
+     "Minerva Math": 31.5,
+     "OlympiadBench": 48.2
+    },
+    "avg": 47.8
+   },
+   {
+    "setting": "VI-CuRL / RENT",
+    "max_new_tokens": 3072,
+    "pass1": {
+     "AIME 2024": 38.0,
+     "AIME 2025": 31.0,
+     "AMC 2023": 83.8,
+     "MATH-500": 92.8,
+     "Minerva Math": 32.8,
+     "OlympiadBench": 57.8
+    },
+    "avg": 56.0
+   },
+   {
+    "setting": "VI-CuRL / RENT",
+    "max_new_tokens": 8192,
+    "pass1": {
+     "AIME 2024": 38.9,
+     "AIME 2025": 31.6,
+     "AMC 2023": 84.2,
+     "MATH-500": 93.4,
+     "Minerva Math": 33.5,
+     "OlympiadBench": 58.6
+    },
+    "avg": 56.7
+   }
+  ],
+  "length_stats": [
+   {
+    "setting": "RENT",
+    "max_new_tokens": 3072,
+    "cap_hit_pct": 3.9,
+    "no_boxed_pct": 10.0,
+    "mean_len": 1895,
+    "p90_len": 3004
+   },
+   {
+    "setting": "RENT",
+    "max_new_tokens": 8192,
+    "cap_hit_pct": 1.7,
+    "no_boxed_pct": 7.9,
+    "mean_len": 2136,
+    "p90_len": 4251
+   },
+   {
+    "setting": "VI-CuRL / RENT",
+    "max_new_tokens": 3072,
+    "cap_hit_pct": 2.9,
+    "no_boxed_pct": 8.1,
+    "mean_len": 1056,
+    "p90_len": 2805
+   },
+   {
+    "setting": "VI-CuRL / RENT",
+    "max_new_tokens": 8192,
+    "cap_hit_pct": 1.2,
+    "no_boxed_pct": 3.9,
+    "mean_len": 2311,
+    "p90_len": 4511
+   }
+  ]
+ }
+}
