@@ -1,162 +1,162 @@
 WEBVTT
 
-00:02.400 --> 00:07.186
-In three minutes: VI-CuRL, our NeurIPS
+00:02.400 --> 00:07.114
+Hi! We introduce VI-CuRL, our NeurIPS
 2026 paper on verifier-independent
 
-00:07.206 --> 00:09.622
+00:07.134 --> 00:09.547
 reinforcement learning for reasoning.
 
-00:10.367 --> 00:14.441
+00:10.300 --> 00:14.374
 Reasoning models like DeepSeek-R1
 learn from verifiable rewards:
 
-00:14.461 --> 00:18.344
+00:14.394 --> 00:18.277
 a verifier checks each answer,
 and correct ones are rewarded.
 
-00:18.667 --> 00:22.837
+00:18.600 --> 00:22.770
 But good verifiers are costly, and
 for open-ended tasks they don't exist.
 
-00:22.857 --> 00:24.272
+00:22.790 --> 00:24.205
 Can we drop the verifier?
 
-00:25.000 --> 00:29.541
+00:24.933 --> 00:29.475
 Verifier-free methods reward the model
 with its own signals instead, such as
 
-00:29.561 --> 00:31.282
+00:29.495 --> 00:31.215
 majority vote or low entropy.
 
-00:31.633 --> 00:34.682
+00:31.567 --> 00:34.616
 But these rewards are noisy,
 so the gradients are noisy.
 
-00:34.702 --> 00:37.806
+00:34.636 --> 00:37.739
 The variance becomes destructive,
 and training collapses.
 
-00:38.133 --> 00:46.385
+00:38.067 --> 00:46.319
 On Qwen2.5-Math 1.5B, TTRL drops to 0.1
 percent accuracy, and RENT to 4.8, far below
 
-00:46.405 --> 00:48.552
+00:46.339 --> 00:48.485
 the base model's 20.3.
 
-00:49.267 --> 00:53.334
+00:49.200 --> 00:53.267
 Our idea comes from how people learn: start
 with what you are sure about, then take
 
-00:53.354 --> 00:54.270
+00:53.287 --> 00:54.203
 on everything else.
 
-00:54.600 --> 00:59.358
+00:54.533 --> 00:59.292
 Existing curricula need a verifier. We
 use the model's own confidence instead:
 
-00:59.378 --> 01:01.748
+00:59.312 --> 01:01.681
 one minus its normalized token entropy.
 
-01:02.100 --> 01:06.050
+01:02.033 --> 01:05.983
 Confidence is never a reward. It only
 decides which prompts we train on.
 
-01:06.767 --> 01:11.804
+01:06.700 --> 01:11.737
 In each GRPO step, we generate responses
 for a batch of prompts, with rewards from
 
-01:11.824 --> 01:14.702
+01:11.757 --> 01:14.636
 any source, and rank the
 prompts by confidence.
 
-01:15.033 --> 01:20.080
+01:14.967 --> 01:20.013
 Only the top fraction, beta t, enters the
 update, re-weighted by one over beta t.
 
-01:20.433 --> 01:23.590
+01:20.367 --> 01:23.523
 Beta is annealed from 20
 percent up to the full batch:
 
-01:23.610 --> 01:26.708
+01:23.543 --> 01:26.641
 first a stable, low-variance
 subset, then everything.
 
-01:27.433 --> 01:32.540
+01:27.367 --> 01:32.473
 Is this biased? Theorem 1 bounds the gap
 to the true objective by two L max, times
 
-01:32.560 --> 01:33.603
+01:32.493 --> 01:33.536
 one minus beta t.
 
-01:33.933 --> 01:38.353
+01:33.867 --> 01:38.286
 So the bias vanishes as beta t reaches
 one, even if the confidence is not
 
-01:38.373 --> 01:39.022
+01:38.306 --> 01:38.955
 calibrated.
 
-01:39.733 --> 01:44.795
+01:39.667 --> 01:44.728
 Theorem 2 splits the gradient variance
 into action, problem, and masking terms;
 
-01:44.815 --> 01:47.304
+01:44.748 --> 01:47.237
 masking vanishes as beta t goes to one.
 
-01:47.633 --> 01:51.818
+01:47.567 --> 01:51.751
 Confident prompts reduce the first two,
 so updates point in a more consistent
 
-01:51.838 --> 01:52.364
+01:51.771 --> 01:52.297
 direction.
 
-01:53.100 --> 01:58.677
+01:53.033 --> 01:58.611
 In practice, early in training, the kept
 subset has 20 to 45 percent lower variance,
 
-01:58.697 --> 02:01.543
+01:58.631 --> 02:01.476
 and the ratio returns to one as beta grows.
 
-02:02.267 --> 02:09.333
+02:02.200 --> 02:09.266
 On six math benchmarks, verifier-free
 VI-CuRL lifts Qwen2.5-Math 1.5B to 34.2
 
-02:09.353 --> 02:13.934
+02:09.286 --> 02:13.868
 percent with majority vote,
 and 31.7 with entropy.
 
-02:14.267 --> 02:21.114
+02:14.200 --> 02:21.048
 On DeepSeek-R1-Distill-Qwen 1.5B, verifier-free
 VI-CuRL reaches 58.6, above training
 
-02:21.134 --> 02:24.139
+02:21.068 --> 02:24.073
 with a ground-truth verifier at 50.8.
 
-02:24.467 --> 02:28.851
+02:24.400 --> 02:28.784
 With a verifier, it is best on all four
 models, and it also stays stable on
 
-02:28.871 --> 02:30.554
+02:28.804 --> 02:30.487
 general-knowledge benchmarks.
 
-02:31.267 --> 02:36.973
+02:31.200 --> 02:36.907
 Both parts matter. Random or least-confident
 subsets give little or no gain;
 
-02:36.993 --> 02:40.289
+02:36.927 --> 02:40.222
 confidence lifts accuracy from 47.4 to 56.0.
 
-02:40.633 --> 02:44.226
+02:40.567 --> 02:44.159
 And without annealing, a static
 filter collapses later in training.
 
-02:44.933 --> 02:49.350
+02:44.867 --> 02:49.284
 To sum up: VI-CuRL turns confidence
 into an annealed curriculum that is
 
-02:49.370 --> 02:53.413
+02:49.304 --> 02:53.346
 asymptotically unbiased, reduces
 variance, and prevents collapse.
 
-02:53.733 --> 02:55.923
+02:53.667 --> 02:55.857
 Our code is on GitHub. Thanks for watching!

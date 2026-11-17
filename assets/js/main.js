@@ -43,15 +43,15 @@ document.querySelectorAll("main section[id]").forEach((s) => io.observe(s));
 
 /* ---------- video chapters ---------- */
 const CHAPTERS = [
-  [0, "Intro"], [10, "Why verifier-free RL?"], [25, "The problem: collapse"], [49, "Key idea: confidence"],
-  [67, "The algorithm"], [87, "Theory I: consistency"], [100, "Theory II: variance"],
-  [113, "Evidence: variance drops"], [122, "Main results"], [151, "Why confidence & annealing?"], [165, "Takeaways"],
+  [0, "Intro"], [10, "Why verifier-free RL?"], [24.7, "The problem: collapse"], [48.9, "Key idea: confidence"],
+  [66.4, "The algorithm"], [87.1, "Theory I: consistency"], [99.4, "Theory II: variance"],
+  [112.8, "Evidence: variance drops"], [121.9, "Main results"], [150.9, "Why confidence & annealing?"], [164.6, "Takeaways"],
 ];
 const video = document.getElementById("explainer");
 const chapWrap = document.getElementById("video-chapters");
 if (video && chapWrap) {
   for (const [t, name] of CHAPTERS) {
-    const mm = `${Math.floor(t / 60)}:${String(t % 60).padStart(2, "0")}`;
+    const mm = `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
     chapWrap.appendChild(h("button", {
       type: "button", "aria-label": `Play from ${mm}: ${name}`,
       onclick: () => { video.currentTime = t; video.play().catch(() => {}); },
