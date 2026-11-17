@@ -43,9 +43,9 @@ document.querySelectorAll("main section[id]").forEach((s) => io.observe(s));
 
 /* ---------- video chapters ---------- */
 const CHAPTERS = [
-  [0, "Intro"], [16, "Why verifier-free RL?"], [61, "The problem: collapse"], [115, "Key idea: confidence"],
-  [174, "The algorithm"], [223, "Theory I: consistency"], [261, "Theory II: variance"],
-  [301, "Evidence: variance drops"], [326, "Main results"], [403, "Why confidence & annealing?"], [435, "Takeaways"],
+  [0, "Intro"], [10, "Why verifier-free RL?"], [25, "The problem: collapse"], [49, "Key idea: confidence"],
+  [67, "The algorithm"], [87, "Theory I: consistency"], [100, "Theory II: variance"],
+  [113, "Evidence: variance drops"], [122, "Main results"], [151, "Why confidence & annealing?"], [165, "Takeaways"],
 ];
 const video = document.getElementById("explainer");
 const chapWrap = document.getElementById("video-chapters");
